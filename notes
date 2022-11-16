@@ -8,6 +8,7 @@ Reload page and edit is in place.
 Bonuses:
 - implement hashing and detect/report if original content was changed.
 - publish in the web store https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#distribution
+- assign event listener to onclick with ctrl pressed
 
 
 Incorporate
@@ -42,3 +43,6 @@ https://developer.chrome.com/docs/extensions/mv3/tut_debugging/
 
 
 + Add context menu option item
+- Get access to element on which context menu item "cut" was selected
+- Set it's contentEditable to true
+- Set contentEditable to false on "esc" click or on pressing "cut" context menu item on anothed dom element

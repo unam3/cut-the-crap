@@ -5,7 +5,8 @@
   "version": "0.1",
   "permissions": [
     "activeTab"
-    , "contextMenus" 
+    , "contextMenus"
+    //, "tabs"
   ],
   "action": {
     //"default_title": "pluh!"
