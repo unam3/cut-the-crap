@@ -4,10 +4,36 @@ You select the paragraph to edit.
 Edit it in place.
 Reload page and edit is in place.
 
-Bonus: implement hashing and detect/report if original content was changed.
+Bonuses:
+- implement hashing and detect/report if original content was changed.
+- publish in the web store https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#distribution
 
 
-Thoughts:
 Incorporate
     - localStorage
     ? text fragments https://chromestatus.com/feature/4733392803332096
+
+Grok promises to not use callbacks?
+How to work with text with links/images?
+
+
+API's to use:
+
+- action for toolbar icon
+- browserAction: toolbar icon, popups
+- commands? adds hotkeys to extension
++ contextMenu
+- debugger?
+- declarativeContent?
+- devtools.inspectedWindow
+- dom? (ShadowRoot)
+- events?
+- notifications?
+- runtime?
+- scripting?
+- storage? async bulk reads
+- devtools.panels?
+
+
+https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#extension-files
+https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#distribution
