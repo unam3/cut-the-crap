@@ -1,10 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Cut The Crap",
+  "name": "Cut The Crap", // showed on hover over action if action.default_title is not set
   "description": "Enables you to edit text content",
   "version": "0.1",
-  //"permissions": ["activeTab"],
+  "permissions": [
+    "activeTab"
+    , "contextMenus" 
+  ],
   "action": {
+    //"default_title": "pluh!"
     //"default_popup": "hello.html"
   },
   "icons": {

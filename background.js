@@ -4,3 +4,17 @@ chrome.runtime.onInstalled.addListener(() => {
     text: "OFF",
   });
 });
+
+chrome.contextMenus.create(
+  {
+    "title": "cut"
+    , "id": "the fuck"
+  },
+  () => {console.log("created?");}
+)
+
+chrome.contextMenus.onClicked.addListener((item, tab) => {
+  //const item = item.menuItemId
+  console.log(["clicked", item]);
+});
+
