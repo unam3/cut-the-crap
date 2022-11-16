@@ -39,3 +39,6 @@ API's to use:
 https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#extension-files
 https://developer.chrome.com/docs/extensions/mv3/getstarted/extensions-101/#distribution
 https://developer.chrome.com/docs/extensions/mv3/tut_debugging/
+
+
+- Add context menu option to invoke things
