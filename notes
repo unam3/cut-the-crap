@@ -1,7 +1,8 @@
 Develop Chromium extension that enables text content edit. To cut the crap.
 
 You select the paragraph to edit.
-Edit it in place.
+Edit it in place. (set contentEditable attribute to true)
+When focus goes from edited element to another one we store the changes. Or we can store them at any change to the text content.
 Reload page and edit is in place.
 
 Bonuses:
