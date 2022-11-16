@@ -12,5 +12,13 @@
     "48": "icons/48.png",
     "32": "icons/32.png",
     "16": "icons/16.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/some.js"],
+      "matches": [
+        "*://*/*"
+      ]
+    }
+  ]
 }
