@@ -43,6 +43,8 @@ https://developer.chrome.com/docs/extensions/mv3/tut_debugging/
 
 
 + Add context menu option item
+    x Cannot get access to dom-element upon which context menu was opened
++ Use ctrl + left mouse button click combination to start things off
 - Get access to element on which context menu item "cut" was selected
 - Set it's contentEditable to true
 - Set contentEditable to false on "esc" click or on pressing "cut" context menu item on anothed dom element
