@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener(
             console.log("equals!", clickedEl, message);
 
             //sendResponse("PLUH!11");
-            sendResponse(clickedEl.textContent);
+            sendResponse(clickedEl);
         }
     }
 );
