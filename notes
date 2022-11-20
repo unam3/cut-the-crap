@@ -50,3 +50,12 @@ x Get access to element on which context menu item "cut" was selected
 + Set contentEditable to false on "esc" or on unfocus.
 - Should I bother to remove event listeners after first of two was fired?
 - Store changes in localStorage
+    - identify element which content was modified
+        - css selectors path
+            + include css celector generator into extension
+                https://medium.com/@otiai10/how-to-use-es6-import-with-chrome-extension-bd5217b9c978 (content script)
+            - blacklist "[contenteditable]" generated css-selector
+        - by it's content
+    - locate element after reload and apply changes to its text
+        - by selectors (check content too)
+        - by content search

@@ -25,7 +25,11 @@
         "*://*/*"
       ]
     }
-  ]
+  ],
+  "web_accessible_resources": [{
+     "matches": ["<all_urls>"],
+     "resources": ["scripts/css-selector-generator.js"]
+  }]
   //],
   //"background": {
   //  "service_worker": "background.js"
