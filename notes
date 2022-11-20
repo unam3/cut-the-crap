@@ -58,7 +58,7 @@ x Get access to element on which context menu item "cut" was selected
                 x function
                 + regexp?
         - by it's content
-    - get url
+    + get url
     - locate element after reload and apply changes to its text
         - by selectors (check content too)
         - by content search

@@ -14,7 +14,8 @@
                 event.target,
                 {"blacklist": ['*ontenteditable*']}
             ),
-            additionalInfo
+            additionalInfo,
+            document.location.host.concat(document.location.pathname, document.location.search)
         ]
         //CssSelectorGenerator.getCssSelector(event.target)
       );
