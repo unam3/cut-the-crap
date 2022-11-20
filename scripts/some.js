@@ -12,13 +12,7 @@
         [
             CssSelectorGenerator.getCssSelector(
                 event.target,
-                {"blacklist": (generatedSelector) => {
-
-                        console.log(["generatedSelector", generatedSelector]);
-
-                        return generatedSelector.includes("contenteditable");
-                    }
-                }
+                {"blacklist": ['*ontenteditable*']}
             ),
             additionalInfo
         ]
