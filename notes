@@ -66,3 +66,16 @@ x Get access to element on which context menu item "cut" was selected
     - locate element after reload and apply changes to its text
         - by selectors (check content too)
         - by content search
+- automation of extension reloading to speed up development: add extension hot reload
+    current manual flow:
+        1) change extension sources
+        2) go to extensions tab
+        3) reload extension
+        4) reload page on which we testing extension
+    hot reload should eliminate 2, 3 and 4 steps
+
+    After loading extension add listener to blur event to window: we changing active window from the browser to sth else (code editor). In this listener we catching focus to window: we make some changes and we need to reload extension.
+    We calling chrome.runtime.reload and then do page reload.
+
+
+    Why not just use any existed hot reloading npm-library? They all want webpack and I don't.
