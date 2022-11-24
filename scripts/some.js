@@ -31,21 +31,7 @@ window.addEventListener(
 
         window.addEventListener(
             "focus",
-            () => {
-
-                console.log("before sending a message");
-
-                chrome.runtime.sendMessage(
-                    "reload",
-                    (response) => console.log(response)
-                );
-
-                console.log("after message was send");
-                
-                //location.reload();
-
-                //console.log("after reloads");
-            }
+            () => chrome.runtime.sendMessage("reload extension")
         );
     }
 );

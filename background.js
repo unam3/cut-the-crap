@@ -1,16 +1,13 @@
 // https://developer.chrome.com/docs/extensions/mv3/messaging/#simple
 chrome.runtime.onMessage.addListener(
+
   function(request, sender, sendResponse) {
 
-    if (request == "reload")
+    if (request == "reload extension")
 
-        //chrome.runtime.reload();
-
-        sendResponse("it was from reload!");
+        chrome.runtime.reload();
   }
 );
-
-console.log(chrome.runtime.lastError);
 
 //chrome.runtime.onInstalled.addListener(() => {
 //  chrome.action.setBadgeText({
