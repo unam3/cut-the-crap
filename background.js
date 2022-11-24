@@ -1,3 +1,4 @@
+// HOT reload implementation
 // https://developer.chrome.com/docs/extensions/mv3/messaging/#simple
 chrome.runtime.onMessage.addListener(
 

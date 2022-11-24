@@ -30,6 +30,7 @@
      "matches": ["<all_urls>"],
      "resources": ["scripts/css-selector-generator.js"]
   }],
+  // HOT reload implementation
   "background": {
     "service_worker": "background.js"
   }
