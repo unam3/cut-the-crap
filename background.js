@@ -1,4 +1,16 @@
-//const a = 2;
+// https://developer.chrome.com/docs/extensions/mv3/messaging/#simple
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    
+    console.log(sender.tab ?
+                "from a content script:" + sender.tab.url :
+                "from the extension");
+    
+    sendResponse({farewell: "goodbye"});
+);
+
+console.log(chome.runtime.lastError);
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeText({
     text: "OFF",
