@@ -1,8 +1,5 @@
 'use strict';
 
-chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-  console.log(response);
-});
 
 const url = document.location.host.concat(document.location.pathname, document.location.search);
 
@@ -23,6 +20,36 @@ const maybeStoreChanges = (original, maybeModified, selector) => {
         console.log("textContent is equal to original");
     }
 }
+
+
+// HOT reload implementation
+window.addEventListener(
+    "blur",
+    () => {
+
+        console.log("blur");
+
+        window.addEventListener(
+            "focus",
+            () => {
+
+                console.log("before sending a message");
+
+                chrome.runtime.sendMessage(
+                    "reload",
+                    (response) => console.log(response)
+                );
+
+                console.log("after message was send");
+                
+                //location.reload();
+
+                //console.log("after reloads");
+            }
+        );
+    }
+);
+
 
 
 (async () => {
