@@ -66,7 +66,7 @@ x Get access to element on which context menu item "cut" was selected
     - locate element after reload and apply changes to its text
         - by selectors (check content too)
         - by content search
-- automation of extension reloading to speed up development: add extension hot reload
++ automation of extension reloading to speed up development: add extension hot reload
     current manual flow:
         1) change extension sources
         2) go to extensions tab
@@ -82,7 +82,7 @@ x Get access to element on which context menu item "cut" was selected
 
     x can't run chrome.runtime.reload from content script: https://developer.chrome.com/docs/extensions/mv3/content_scripts/#capabilities
     + use runtime.sendMessage and catch it in background.js
-    - reload page after reloading extension
+    + reload page after reloading extension
 
 
     logic scheme:

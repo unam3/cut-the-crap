@@ -45,12 +45,6 @@ window.addEventListener(
 
 (async () => {
 
-  // TODO: add hot reloading with https://www.npmjs.com/package/mv3-hot-reload
-  //const hot-reload_src = chrome.runtime.getURL('scripts/.js');
-
-  //const contentScript = await import(css-selector-generator_src);
-
-
   window.addEventListener(
       "beforeunload",
       () => {
