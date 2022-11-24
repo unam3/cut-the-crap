@@ -79,3 +79,5 @@ x Get access to element on which context menu item "cut" was selected
 
 
     Why not just use any existed hot reloading npm-library? They all want webpack and I don't.
+
+    x can't run chrome.runtime.reload from content script: https://developer.chrome.com/docs/extensions/mv3/content_scripts/#capabilities

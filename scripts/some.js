@@ -20,6 +20,30 @@ const maybeStoreChanges = (original, maybeModified, selector) => {
     }
 }
 
+// HOT reload implementation
+window.addEventListener(
+    "blur",
+    () => {
+
+        console.log("blur");
+
+        window.addEventListener(
+            "focus",
+            () => {
+
+                console.log("check");
+
+                chrome.runtime.reload();
+                
+                location.reload();
+
+                console.log("after reloads");
+            }
+        );
+    }
+);
+
+
 (async () => {
 
   // TODO: add hot reloading with https://www.npmjs.com/package/mv3-hot-reload
