@@ -31,7 +31,12 @@ window.addEventListener(
 
         window.addEventListener(
             "focus",
-            () => chrome.runtime.sendMessage("reload extension")
+            () => {
+                
+                chrome.runtime.sendMessage("reload extension");
+
+                location.reload();
+            }
         );
     }
 );
