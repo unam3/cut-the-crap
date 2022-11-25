@@ -71,22 +71,29 @@ window.addEventListener(
         this
       );
       
-      console.log("endOfEdit");
+      event.target.removeEventListener(
+        "keydown",
+        this
+      );
+      
+      console.log("endOfEdit", this);
       //console.log("endOfEdit", this.originalTextContent, this.selector, endOfEdit == this, this);
   };
 
-  const endOfEditWithEscape = (originalTextContent, selector) =>
-    (event) => {
+  const endOfEditWithEscape = function (e) {
 
-      if (event.key == "Escape")
+    if (e.key == "Escape") {
 
-         return endOfEdit(originalTextContent, selector)(event);
-    };
+        console.log("escape", this);
+
+        return endOfEdit(e);
+    }
+  };
 
 
   const clickHandler = (event) => {
+
       if (event.ctrlKey) {
-          
           
           const clicked = event.target;
 
@@ -108,14 +115,17 @@ window.addEventListener(
                 "handleEvent": endOfEdit,
                 originalTextContent,
                 selector
-              }
+              },
           );
 
-          //clicked.addEventListener(
-          //    "keydown",
-          //    endOfEditWithEscape(originalTextContent),
-          //    true
-          //);
+          clicked.addEventListener(
+              "keydown",
+              {
+                "handleEvent": endOfEditWithEscape,
+                originalTextContent,
+                selector
+              }
+          );
       }
   };
 
