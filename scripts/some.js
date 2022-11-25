@@ -64,17 +64,8 @@ window.addEventListener(
       e.target.contentEditable = false;
 
       //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
-
       
-      event.target.removeEventListener(
-        "focusout",
-        this,
-        false
-      );
-      
-      //console.log("endOfEdit");
-      console.log("endOfEdit", originalTextContent, selector);
-      //console.log("endOfEdit", originalTextContent, selector, event);
+      console.log("endOfEdit");
     };
   };
 
@@ -105,16 +96,12 @@ window.addEventListener(
           console.log(originalTextContent, selector, "on click: contentEditable = true");
           
 
-          const unwrapped = endOfEdit(originalTextContent, selector);
-
-          const binded = unwrapped.bind(unwrapped);
-
           //console.log(binded);
 
           clicked.addEventListener(
               "focusout",
-              binded,
-              false
+              endOfEdit(originalTextContent, selector),
+              {"once": true}
           );
 
           //clicked.addEventListener(
