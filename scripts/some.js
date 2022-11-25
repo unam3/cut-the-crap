@@ -56,54 +56,78 @@ window.addEventListener(
   const src = chrome.runtime.getURL('scripts/css-selector-generator.js');
   
   const contentScript = await import(src);
-  
+
+  const endOfEdit = function (originalTextContent, selector) {
+
+    return function (e) {
+
+      e.target.contentEditable = false;
+
+      //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
+
+      
+      event.target.removeEventListener(
+        "focusout",
+        this,
+        false
+      );
+      
+      //console.log("endOfEdit");
+      console.log("endOfEdit", originalTextContent, selector);
+      //console.log("endOfEdit", originalTextContent, selector, event);
+    };
+  };
+
+  const endOfEditWithEscape = (originalTextContent, selector) =>
+    (event) => {
+
+      if (event.key == "Escape")
+
+         endOfEdit(originalTextContent, selector)(event);
+    };
+
+
+  const clickHandler = (event) => {
+      if (event.ctrlKey) {
+          
+          
+          const clicked = event.target;
+
+          const originalTextContent = clicked.textContent;
+
+          clicked.contentEditable = true;
+
+          clicked.focus();
+
+
+          const selector = generateCSSSelector(clicked);
+
+          console.log(originalTextContent, selector, "on click: contentEditable = true");
+          
+
+          const unwrapped = endOfEdit(originalTextContent, selector);
+
+          const binded = unwrapped.bind(unwrapped);
+
+          //console.log(binded);
+
+          clicked.addEventListener(
+              "focusout",
+              binded,
+              false
+          );
+
+          //clicked.addEventListener(
+          //    "keydown",
+          //    endOfEditWithEscape(originalTextContent),
+          //    true
+          //);
+      }
+  };
+
   document.addEventListener(
       "click",
-      function(event) {
-          if (event.ctrlKey) {
-              
-              const clicked = event.target;
-  
-              const originalTextContent = event.target.textContent;
-
-              clicked.contentEditable = true;
-              
-              clicked.focus();
-
-
-              const selector = generateCSSSelector(event.target);
-
-              console.log(selector, "on click: set to true");
-              
-              event.target.addEventListener(
-                  "focusout",
-                  ((event) => {
-                      event.target.contentEditable = false;
-
-                      maybeStoreChanges(originalTextContent, event.target.textContent, selector);
-                      
-                      console.log(selector, changes, "on focusout: set to false");
-                  }),
-                  true
-              );
-  
-              event.target.addEventListener(
-                  "keydown",
-                  ((event) => {
-                      //console.log(event.key, event.target);
-  
-                      if (event.key == "Escape") {
-                          event.target.contentEditable = false;
-
-                          maybeStoreChanges(originalTextContent, event.target.textContent, selector);
-                          
-                          console.log(selector, changes, "on Escape keydown: set to false");
-                      };
-                  }),
-                  true
-              );
-          }
-      },
+      clickHandler,
       true
   );
 })();
