@@ -57,16 +57,22 @@ window.addEventListener(
   
   const contentScript = await import(src);
 
-  const endOfEdit = function (originalTextContent, selector) {
 
-    return function (e) {
+  // arrows doesn't have *this*; here it's an object from addEventListener params
+  const endOfEdit = function (e) {
 
       e.target.contentEditable = false;
 
       //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
+
+      
+      event.target.removeEventListener(
+        "focusout",
+        this
+      );
       
       console.log("endOfEdit");
-    };
+      //console.log("endOfEdit", this.originalTextContent, this.selector, endOfEdit == this, this);
   };
 
   const endOfEditWithEscape = (originalTextContent, selector) =>
@@ -74,7 +80,7 @@ window.addEventListener(
 
       if (event.key == "Escape")
 
-         endOfEdit(originalTextContent, selector)(event);
+         return endOfEdit(originalTextContent, selector)(event);
     };
 
 
@@ -93,15 +99,16 @@ window.addEventListener(
 
           const selector = generateCSSSelector(clicked);
 
-          console.log(originalTextContent, selector, "on click: contentEditable = true");
+          //console.log(originalTextContent, selector, "on click: contentEditable = true");
           
-
-          //console.log(binded);
 
           clicked.addEventListener(
               "focusout",
-              endOfEdit(originalTextContent, selector),
-              {"once": true}
+              {
+                "handleEvent": endOfEdit,
+                originalTextContent,
+                selector
+              }
           );
 
           //clicked.addEventListener(
