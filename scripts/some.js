@@ -61,23 +61,39 @@ window.addEventListener(
   // arrows doesn't have *this*; here it's an object from addEventListener params
   const endOfEdit = function (e) {
 
-      e.target.contentEditable = false;
+      console.log("handleEvent name is ".concat(this.handleEvent.name));
 
       //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
 
-      
+      // mutating this because removeEventListener needs original reference to object
+      this.hadnleEvent = endOfEdit;
+
       event.target.removeEventListener(
         "focusout",
         this
       );
+
+      e.target.contentEditable = false;
+
+      //const {originalTextContent, selector} = this;
+
+      //const modifiedOptions = {
+      //  originalTextContent,
+      //  selector,
+      //  "handleEvent": endOfEditWithEscape,
+      //};
       
+      // works
+      this.handleEvent = endOfEditWithEscape;
+
       event.target.removeEventListener(
         "keydown",
-        this
+        // endOfEditWithEscape // does not work
+        // modifiedOptions // does not work
+        this // works
       );
       
-      console.log("endOfEdit", this);
-      //console.log("endOfEdit", this.originalTextContent, this.selector, endOfEdit == this, this);
+      console.log("endOfEdit ends");
   };
 
   const endOfEditWithEscape = function (e) {
@@ -86,7 +102,7 @@ window.addEventListener(
 
         console.log("escape", this);
 
-        return endOfEdit(e);
+        return endOfEdit.bind(this)(e);
     }
   };
 
