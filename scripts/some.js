@@ -61,46 +61,25 @@ window.addEventListener(
   // arrows doesn't have *this*; here it's an object from addEventListener params
   const endOfEdit = function (e) {
 
-      console.log("handleEvent name is ".concat(this.handleEvent.name));
+      const originalHandleEventName = this.handleEvent.name;
+
+      console.log(originalHandleEventName, "ts: ".concat(e.timeStamp));
 
       //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
 
-      // mutating this because removeEventListener needs original reference to object
-      this.hadnleEvent = endOfEdit;
-
-      event.target.removeEventListener(
-        "focusout",
-        this
-      );
+      this.controller.abort();
 
       e.target.contentEditable = false;
 
-      //const {originalTextContent, selector} = this;
-
-      //const modifiedOptions = {
-      //  originalTextContent,
-      //  selector,
-      //  "handleEvent": endOfEditWithEscape,
-      //};
       
-      // works
-      this.handleEvent = endOfEditWithEscape;
-
-      event.target.removeEventListener(
-        "keydown",
-        // endOfEditWithEscape // does not work
-        // modifiedOptions // does not work
-        this // works
-      );
-      
-      console.log("endOfEdit ends");
+      console.log((originalHandleEventName).concat(" ends"));
   };
 
   const endOfEditWithEscape = function (e) {
 
     if (e.key == "Escape") {
 
-        console.log("escape", this);
+        //console.log("escape", this);
 
         return endOfEdit.bind(this)(e);
     }
@@ -125,23 +104,31 @@ window.addEventListener(
           //console.log(originalTextContent, selector, "on click: contentEditable = true");
           
 
-          clicked.addEventListener(
-              "focusout",
-              {
-                "handleEvent": endOfEdit,
-                originalTextContent,
-                selector
-              },
-          );
+          const controller = new AbortController();
+          
 
           clicked.addEventListener(
               "keydown",
               {
                 "handleEvent": endOfEditWithEscape,
                 originalTextContent,
-                selector
+                selector,
+                signal: controller.signal,
+                controller
               }
           );
+
+          clicked.addEventListener(
+              "blur",
+              {
+                "handleEvent": endOfEdit,
+                originalTextContent,
+                selector,
+                signal: controller.signal,
+                controller
+              },
+          );
+
       }
   };
 
