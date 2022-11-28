@@ -48,9 +48,9 @@ x Get access to element on which context menu item "cut" was selected
 + Use ctrl + left mouse button click combination to start things off
 + Set it's contentEditable to true
 + Set contentEditable to false on "esc" or on unfocus.
-- Should I bother to remove event listeners after first of two was fired?
++ Should I bother to remove event listeners after first of two was fired?
 - Store changes in localStorage
-    - identify element which content was modified
+    + identify element which content was modified
         + css selectors path
             + include css celector generator into extension
                 https://medium.com/@otiai10/how-to-use-es6-import-with-chrome-extension-bd5217b9c978 (content script)
@@ -59,13 +59,14 @@ x Get access to element on which context menu item "cut" was selected
                 + regexp?
         - by it's content
     + get url
-    - store changes in localStorage after onUnload event
+    + store changes in localStorage after onUnload event
         + store changes in object on "contentEditable = false"
         + add check if textContent was even modified
-        - remove focuseout event listener in Escape keydown even listener to not store changes twice
-    - locate element after reload and apply changes to its text
-        - by selectors (check content too)
+        x remove focuseout event listener in Escape keydown even listener to not store changes twice
+    + locate element after reload and apply changes to its text
+        + by selectors (check content too)
         - by content search
+    - store hash of original content?
 + automation of extension reloading to speed up development: add extension hot reload
     current manual flow:
         1) change extension sources

@@ -1,9 +1,46 @@
 'use strict';
 
-
 const url = document.location.host.concat(document.location.pathname, document.location.search);
 
-const changes = {};
+let changes = {};
+
+window.addEventListener(
+    "load",
+    () => {
+
+        console.log("load");
+
+        const savedChanges = window.localStorage.getItem(url);
+
+        if (savedChanges) {
+
+            changes = JSON.parse(savedChanges);
+
+            console.log("parsed", changes);
+
+            Object.entries(changes)
+                .forEach(
+                    ([selector, textContent]) => {
+
+                        console.log(selector, textContent);
+
+                        const node = document.querySelector(selector);
+
+                        if (node) {
+                            
+                            node.textContent = textContent;
+                        } else {
+
+                            console.log("document has no node with such selector", selector);
+                        }
+                    }
+                );
+
+            console.log("changes was applied");
+        }
+    }
+);
+
 
 const generateCSSSelector = (node) => CssSelectorGenerator.getCssSelector(
     node,
@@ -66,7 +103,7 @@ window.addEventListener(
       console.log(originalHandleEventName, "ts: ".concat(e.timeStamp));
 
 
-      //maybeStoreChanges(originalTextContent, event.target.textContent, selector);
+      maybeStoreChanges(this.originalTextContent, event.target.textContent, this.selector);
 
       // mutating this because removeEventListener needs original reference to object
       //this.hadnleEvent = endOfEdit;
