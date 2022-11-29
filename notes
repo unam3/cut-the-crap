@@ -66,7 +66,9 @@ x Get access to element on which context menu item "cut" was selected
     + locate element after reload and apply changes to its text
         + by selectors (check content too)
         - by content search
-    - store hash of original content?
+    + store hash of original content to track if original text was changed
+    + use stored hash to check if original content was changed
+    - indicate to user that original content was changed
 + automation of extension reloading to speed up development: add extension hot reload
     current manual flow:
         1) change extension sources

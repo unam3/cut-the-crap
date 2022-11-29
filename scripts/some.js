@@ -20,15 +20,27 @@ window.addEventListener(
 
             Object.entries(changes)
                 .forEach(
-                    ([selector, textContent]) => {
+                    ([selector, {textContent, originalHash}]) => {
 
                         console.log(selector, textContent);
 
                         const node = document.querySelector(selector);
 
                         if (node) {
-                            
-                            node.textContent = textContent;
+
+                            digest(node.textContent).then(
+
+                                currentOriginalHash => {
+
+                                    if (originalHash == currentOriginalHash)
+                                    
+                                        node.textContent = textContent;
+
+                                    else
+                                        
+                                        console.log("original content was changed");
+                                }
+                            );
                         } else {
 
                             console.log("document has no node with such selector", selector);
@@ -47,10 +59,38 @@ const generateCSSSelector = (node) => CssSelectorGenerator.getCssSelector(
     {"blacklist": ['*ontenteditable*']}
 );
 
-                          
+
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
+async function digest(text) {
+  const msgUint8 = new TextEncoder().encode(text);                           // encode as (utf-8) Uint8Array
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the text
+  const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+  return hashHex;
+}
+
 const maybeStoreChanges = (original, maybeModified, selector) => {
+
     if (original != maybeModified) {
-        changes[selector] = maybeModified;
+
+        if (!changes[selector]) {
+
+            //console.log("first time edit");
+
+            digest(original).then(
+                hash =>
+                    changes[selector] = {
+                        "textContent": maybeModified,
+                        "originalHash": hash
+                    }
+            );
+
+        } else {
+
+            //console.log("not the first time edit");
+
+            changes[selector].textContent = maybeModified;
+        }
         
         console.log("textContent was stored for ".concat(selector));
     } else {
@@ -102,6 +142,8 @@ window.addEventListener(
 
       console.log(originalHandleEventName, "ts: ".concat(e.timeStamp));
 
+
+      console.log(changes);
 
       maybeStoreChanges(this.originalTextContent, event.target.textContent, this.selector);
 
